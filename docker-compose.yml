@@ -1,0 +1,80 @@
+version: "3.8"
+
+services:
+  backend:
+    build: ./backend
+    command: >
+      bash -c "
+      python manage.py makemigrations
+      && python manage.py migrate
+      && python manage.py runserver 0.0.0.0:8000
+      "
+    volumes:
+      - ./backend:/code/backend/
+    ports:
+      - 8000:8000
+
+    environment:
+      - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      # - OPENAI_ORG_ID=${OPENAI_ORG_ID}s
+      - EMAIL_HOST_PASSWORD=${EMAIL_HOST_PASSWORD}
+      - CSRF_TRUSTED_ORIGINS=${CSRF_TRUSTED_ORIGINS}
+      - ALLOWED_HOSTS=${ALLOWED_HOSTS}
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_PORT=${DB_PORT}
+      - POSTGRES_HOST=${DB_HOST}
+      - QDRANT_API_KEY=${QDRANT_API_KEY}
+      - QDRANT_CLOUD=${QDRANT_CLOUD}
+      - GOOGLE_CALLBACK_URL=${GOOGLE_CALLBACK_URL}
+      - PDF_ASSISTANT_ID=${PDF_ASSISTANT_ID}
+      - DEBUG=True
+
+    depends_on:
+      - redis
+      - db
+
+  celery:
+    build: ./backend
+    command: celery -A config worker -l INFO
+    volumes:
+      - ./backend/:/code/backend/
+    environment:
+      - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      # - OPENAI_ORG_ID=${OPENAI_ORG_ID}
+      - EMAIL_HOST_PASSWORD=${EMAIL_HOST_PASSWORD}
+      - CSRF_TRUSTED_ORIGINS=${CSRF_TRUSTED_ORIGINS}
+      - ALLOWED_HOSTS=${ALLOWED_HOSTS}
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_PORT=${DB_PORT}
+      - POSTGRES_HOST=${DB_HOST}
+      - QDRANT_API_KEY=${QDRANT_API_KEY}
+      - QDRANT_CLOUD=${QDRANT_CLOUD}
+      - GOOGLE_CALLBACK_URL=${GOOGLE_CALLBACK_URL}
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+
+  db:
+    image: postgres:14
+    restart: always
+    volumes:
+      - bidamerica_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_PORT=${DB_PORT}
+      - POSTGRES_HOST=${DB_HOST}
+    ports:
+      - 5433:5432
+
+volumes:
+  bidamerica_data:

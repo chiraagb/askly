@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  box-sizing: border-box;
+}
+
+.hidden-scrollbar::-webkit-scrollbar {
+  display: none; /* Completely hides the scrollbar */
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #e5e5e5;
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb {
+  cursor: pointer;
+  background: #3d3d3d;
+  border-radius: 5px;
+}
+.dark ::-webkit-scrollbar {
+  width: 6px;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: #1d1d1d;
+  border-radius: 5px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  cursor: pointer;
+  background: #3d3d3d;
+  border-radius: 5px;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #646464;
+}
+
+@keyframes slide-1 {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(10px);
+  }
+  50% {
+    transform: translateX(20px);
+  }
+}
+
+@keyframes slide-2 {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateX(-20px);
+  }
+}
+
+@keyframes slide-3 {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-20px);
+  }
+}
+
+.animate-slide-1 {
+  animation: slide-1 1100ms infinite;
+}
+
+.animate-slide-2 {
+  animation: slide-2 1100ms infinite;
+}
+
+.animate-slide-3 {
+  animation: slide-3 1100ms infinite;
+}

@@ -1,0 +1,42 @@
+.shadow-sign-up {
+  box-shadow: -9px 4px 76px 0px #00000040;
+  background: rgba(57, 57, 57, 1);
+}
+
+.bg-aila {
+  background: linear-gradient(
+    90deg,
+    rgba(67, 92, 158, 0.5) 0%,
+    rgba(67, 92, 158, 0.08) 100%
+  );
+}
+
+.ellipse-signin {
+  clip-path: ellipse(50% 50%);
+  background: linear-gradient(
+    181.47deg,
+    #1a1c1e 24.98%,
+    rgba(26, 28, 30, 0) 66.07%
+  );
+}
+
+.circle-1 {
+  clip-path: circle(50% at 50% 50%);
+  background-color: #8c8d84;
+  opacity: 20%;
+}
+
+.circle-2 {
+  clip-path: circle(50% at 20% 80%);
+  background-color: #8c8d84;
+  opacity: 20%;
+}
+.rectangle {
+  background: linear-gradient(
+    -1.81deg,
+    rgba(0, 0, 0, 0.8) -3.54%,
+    rgba(217, 217, 217, 0) 91.54%
+  );
+  clip-path: inset(50%, 0);
+  opacity: 100%;
+}

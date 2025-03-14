@@ -11,7 +11,8 @@ WORKDIR /code/backend
 # Copy requirements file & install requirements
 RUN pip install --upgrade pip
 COPY ./requirements.txt .
-RUN pip install -r requirements.txt
+RUN pip install uv
+RUN uv pip install -r requirements.txt --system
 
 RUN apt-get update && apt-get install -y libcairo2-dev libjpeg-dev libpng-dev
 

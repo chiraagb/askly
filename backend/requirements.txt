@@ -26,3 +26,4 @@ django-allauth==0.52.0
 md2pdf==1.0.1
 pdf2docx==0.5.8
 django-storages[google]
+httpx==0.27.2
